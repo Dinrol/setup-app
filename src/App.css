@@ -1,35 +1,9 @@
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.btn-main {
-  max-width: 320px;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  padding: 0.8em 1em calc(0.8em + 3px);
-  border-radius: 3px;
-  background: rgb(64, 199, 129);
-  box-shadow: 0 -3px rgb(53, 167, 110) inset;
-  transition: 0.2s;
-  margin: 5px;
-  display: inline-block;
-  cursor: pointer;
-}
-.btn-main:hover {
-  background: rgb(53, 167, 110);
-}
-.btn-main:active {
-  background: rgb(33, 147, 90);
-  box-shadow: 0 3px rgb(33, 147, 90) inset;
-}
 .users-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .top {
   display: flex;
-  align-items: stretch;
 }

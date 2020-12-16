@@ -4,7 +4,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url("https://html-templates.info/images/pages/140520040122.jpg") 0 0 no-repeat;
+  /* background: url("https://html-templates.info/images/pages/140520040122.jpg") 0 0 no-repeat; */
 }
 
 code {
