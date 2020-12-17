@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import './user-style.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Input, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
+import { InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
    root: {
+      margin: "10px",
       minWidth: 275,
       maxWidth: 375,
       marginBottom: 20,
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-export default function User({ username, email, status, telephone, id, setUserList }) {
+export default function User({ username, email, status, telephone, id, dateCreate, dateEdit, setUserList }) {
    const [editMode, setEditMode] = useState(false)
 
    const updateUserInfo = (e) => {
@@ -59,7 +59,6 @@ export default function User({ username, email, status, telephone, id, setUserLi
       localStorage.setItem("users", JSON.stringify(userList))
       setUserList(userList)
       setEditMode(false)
-
    }
 
    const removeUser = () => {
@@ -76,30 +75,32 @@ export default function User({ username, email, status, telephone, id, setUserLi
    const classes = useStyles();
 
    return (
-      <Card className={classes.root} variant="outlined">
+      <Card className='user-cart' >
          <CardContent>
             {!editMode &&
                <>
-                  <Typography >Имя пользователя: {username}</Typography>
+                  <Typography >ФИО: {username}</Typography>
                   <Typography >Email: {email}</Typography>
                   <Typography >Статус: {status}</Typography>
                   <Typography >Телефон: {telephone}</Typography>
+                  <Typography >Дата создания: {dateCreate}</Typography>
+                  <Typography >Последнее изменение: {dateEdit}</Typography>
                   <EditIcon className='edit-icon' onClick={() => setEditMode(true)} />
                   <DeleteIcon className='delete-icon' onClick={removeUser} />
                </>
             }
             {editMode &&
                <form onSubmit={updateUserInfo} className={classes.editMode}>
-                  <input type="hidden" name="dateEdit" value={new Date()} />
-                  <InputLabel htmlFor="username">Введите имя пользователя:</InputLabel>
+                  <input type="hidden" name="dateEdit" value={new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()} />
+                  <InputLabel htmlFor="username">Изменить ФИО:</InputLabel>
                   <TextField variant="outlined"
                      defaultValue={username}
                      id="username"
                      name="username"
-                     placeholder='Имя пользователя'
+                     placeholder='ФИО'
                      type="text"
                      required />
-                  <InputLabel htmlFor="email"> Введите email: </InputLabel>
+                  <InputLabel htmlFor="email">Изменить email:</InputLabel>
                   <TextField id="email"
                      defaultValue={email}
                      placeholder='Email'
@@ -108,7 +109,7 @@ export default function User({ username, email, status, telephone, id, setUserLi
                      type="email"
                      required />
 
-                  <InputLabel htmlFor="telephone"> Введите номер телефона: </InputLabel>
+                  <InputLabel htmlFor="telephone"> Изменить номер телефона: </InputLabel>
                   <TextField id="telephone"
                      defaultValue={telephone}
                      variant="outlined"
@@ -117,7 +118,7 @@ export default function User({ username, email, status, telephone, id, setUserLi
                      placeholder="+7(999) 999-9999"
                      required />
 
-                  <InputLabel> Выберите статус: </InputLabel>
+                  <InputLabel> Изменить статус: </InputLabel>
                   <Select name="status" defaultValue={status} required>
                      <MenuItem value="client">Клиент</MenuItem>
                      <MenuItem value="admin">Администратор</MenuItem>

@@ -1,14 +1,14 @@
 .user-cart {
-   width: 320px;
-   padding: 20px;
+   max-width: 320px;
+   min-width: 275px;
+   min-height: 350px;
    margin: 5px;
-   border-radius: 20px;
-   color: #0d0221;
    border: 1px solid #3f51b5;
 }
 
 .edit-icon {
    cursor: pointer;
+   bottom: 0;
 }
 .delete-icon {
    cursor: pointer;

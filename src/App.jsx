@@ -100,16 +100,15 @@ function App() {
       }
    }
 
-   const clearSearchField = () => {
-      debugger
-      document.getElementById('site-search').value = ''
-      setUserList(getUserList)
-   }
+   // const clearSearchField = () => {
+   //    document.getElementById('site-search').value = ''
+   //    setUserList(getUserList)
+   // }
 
    const classes = useStyles();
 
    return (
-      <Container maxWidth="lg">
+      <>
          <div className={classes.root}>
             <AppBar position="static">
                <Toolbar>
@@ -174,10 +173,12 @@ function App() {
                   status={user.status}
                   email={user.email}
                   id={user.id}
+                  dateCreate={user.dateCreate}
+                  dateEdit={user.dateEdit}
                   setUserList={(users) => setUserList(users)} />)
             }
          </div>
-      </Container>
+      </>
    );
 
 }

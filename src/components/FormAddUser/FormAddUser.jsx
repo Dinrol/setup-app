@@ -43,13 +43,14 @@ export default function FormAddUser({ setUserList, userList, setViewAddUserForm 
       <form onSubmit={handleSubmit} className={`add-user-form ${classes.root}`}>
 
          <input type="hidden" name="id" value={userId} />
-         <input type="hidden" name="dateCrate" value={new Date()} />
+         <input type="hidden" name="dateCreate" value={new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()} />
+         <input type="hidden" name="dateEdit" value={new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()} />
 
-         <InputLabel htmlFor="username">Введите имя пользователя:</InputLabel>
+         <InputLabel htmlFor="username">Введите ФИО:</InputLabel>
          <TextField variant="outlined"
             id="username"
             name="username"
-            placeholder='Имя пользователя'
+            placeholder='ФИО'
             type="text"
             required />
 
