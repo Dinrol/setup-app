@@ -4,8 +4,8 @@ import User from './components/User/User';
 import './App.css'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
-import { AppBar, Toolbar, Typography, InputBase, Container, InputLabel, MenuItem, Select, FormControl, FormHelperText, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, InputLabel, MenuItem, Select, FormControl, FormHelperText, Button } from '@material-ui/core';
+import faker from 'faker/locale/ru'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -55,9 +55,6 @@ const useStyles = makeStyles((theme) => ({
       textOverflow: 'ellipsis',
       [theme.breakpoints.up('sm')]: {
          width: '30ch',
-         // '&:focus': {
-         //    width: '30ch',
-         // },
       },
    },
    selectEmpty: {
@@ -70,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
    btnAddUser: {
       height: 55,
       margin: theme.spacing(1),
+      backgroundColor: '#69f0ae',
+      borderColor: '#69f0ae',
+   },
+   btnDemo: {
+      height: 55,
+      margin: theme.spacing(1),
    }
 }));
 
@@ -79,6 +82,40 @@ function App() {
    const [userList, setUserList] = useState(getUserList)
    const [viewAddUserForm, setViewAddUserForm] = useState(false)
    const [status, setStatus] = React.useState('');
+   const fakeStatus = ['client', 'partner', 'admin']
+
+   const createFakeUser = () => {
+      let randomEmail = faker.internet.email()
+      let randomUserName = faker.name.findName()
+      let randomPhone = faker.phone.phoneNumber()
+      let randomPassword = faker.internet.password()
+      let fakeUser = {
+         id: userList.length ? +userList[userList.length - 1].id + 1 : 0,
+         email: randomEmail,
+         status: fakeStatus[Math.floor(Math.random() * fakeStatus.length)],
+         dateCreate: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+         dateEdit: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+         password: randomPassword,
+         telephone: randomPhone,
+         username: randomUserName,
+      }
+      return fakeUser
+   }
+
+   const setFakeUsers = () => {
+      let idNewFakeUser = createFakeUser().id++
+      let fakeUserList = []
+      for (let i = 0; i < 100; i++) {
+         let newFakeUser = {
+            ...createFakeUser(),
+            id: idNewFakeUser++
+         }
+         fakeUserList.push(newFakeUser)
+      }
+      fakeUserList = userList.concat(fakeUserList)
+      localStorage.setItem("users", JSON.stringify(fakeUserList))
+      setUserList(fakeUserList)
+   }
 
    const filterByStatus = (e) => {
       const statusValue = e.target.value
@@ -99,11 +136,6 @@ function App() {
          setUserList(getUserList)
       }
    }
-
-   // const clearSearchField = () => {
-   //    document.getElementById('site-search').value = ''
-   //    setUserList(getUserList)
-   // }
 
    const classes = useStyles();
 
@@ -151,9 +183,13 @@ function App() {
             <Button variant="outlined"
                className={classes.btnAddUser}
                size="small"
-               color="primary"
                onClick={() => setViewAddUserForm(!viewAddUserForm)}>Добавить пользователя
             </Button>
+            <Button
+               size="small"
+               onClick={setFakeUsers}
+               className={classes.btnDemo}
+               variant="outlined">Демо данные</Button>
          </div>
          <div className="form">
             {
